@@ -4,6 +4,6 @@ node_js:
   - "4.4"
 install:
   - npm install -g elm@0.17
-  - npm install -g elm-doctest@0.1.8
+  - npm install -g https://github.com/arowM/elm-doctest.git#dist
 script:
-- elm-doctest src/Monoid.elm
+  - elm-doctest src/Monoid.elm
