@@ -6,4 +6,4 @@ install:
   - npm install -g elm@0.17
   - npm install -g https://github.com/arowM/elm-doctest.git#dist
 script:
-  - elm-doctest src/Monoid.elm
+  - bash test.sh
