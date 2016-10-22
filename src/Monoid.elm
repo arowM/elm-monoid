@@ -4,13 +4,13 @@ module Monoid exposing
   , empty
   , append
   , concat
-  , stringMonoid
-  , listMonoid
-  , arrayMonoid
-  , dictMonoid
-  , setMonoid
-  , cmdMonoid
-  , subMonoid
+  , string
+  , list
+  , array
+  , dict
+  , set
+  , cmd
+  , sub
   )
 
 {-| A module to define generic functions for monoid.
@@ -20,9 +20,9 @@ For instance, we defined generic `concat` in this module using `Monoid` type as 
 concat : Monoid a -> List a -> a
 concat m = List.foldr (append m) (empty m)
 
->>> concat stringMonoid ["foo", "bar", "baz"]
+>>> concat string ["foo", "bar", "baz"]
 "foobarbaz"
->>> concat listMonoid [[1, 2, 3], [4, 5], [6]]
+>>> concat list [[1, 2, 3], [4, 5], [6]]
 [1, 2, 3, 4, 5, 6]
 ```
 
@@ -45,13 +45,13 @@ concat m = List.foldr (append m) (empty m)
 
 # Monoid types for popular types
 
-@docs stringMonoid
-@docs listMonoid
-@docs arrayMonoid
-@docs dictMonoid
-@docs setMonoid
-@docs cmdMonoid
-@docs subMonoid
+@docs string
+@docs list
+@docs array
+@docs dict
+@docs set
+@docs cmd
+@docs sub
 
 -}
 
@@ -118,41 +118,41 @@ concat m = List.foldr (append m) (empty m)
 
 {-| `Monoid` type for `String`.
 -}
-stringMonoid : Monoid String
-stringMonoid = monoid "" (++)
+string : Monoid String
+string = monoid "" (++)
 
 
 {-| `Monoid` type for `List`.
 -}
-listMonoid : Monoid (List a)
-listMonoid = monoid [] (++)
+list : Monoid (List a)
+list = monoid [] (++)
 
 
 {-| `Monoid` type for `Array`.
 -}
-arrayMonoid : Monoid (Array a)
-arrayMonoid = monoid Array.empty Array.append
+array : Monoid (Array a)
+array = monoid Array.empty Array.append
 
 
 {-| `Monoid` type for `Dict`.
 -}
-dictMonoid : Monoid (Dict comparable a)
-dictMonoid = monoid Dict.empty Dict.union
+dict : Monoid (Dict comparable a)
+dict = monoid Dict.empty Dict.union
 
 
 {-| `Monoid` type for `Set`.
 -}
-setMonoid : Monoid (Set comparable)
-setMonoid = monoid Set.empty Set.union
+set : Monoid (Set comparable)
+set = monoid Set.empty Set.union
 
 
 {-| `Monoid` type for `Cmd`.
 -}
-cmdMonoid : Monoid (Cmd comparable)
-cmdMonoid = monoid Cmd.none (\a b -> Cmd.batch [a, b])
+cmd : Monoid (Cmd comparable)
+cmd = monoid Cmd.none (\a b -> Cmd.batch [a, b])
 
 
 {-| `Monoid` type for `Sub`.
 -}
-subMonoid : Monoid (Sub comparable)
-subMonoid = monoid Sub.none (\a b -> Sub.batch [a, b])
+sub : Monoid (Sub comparable)
+sub = monoid Sub.none (\a b -> Sub.batch [a, b])
