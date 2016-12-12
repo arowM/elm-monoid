@@ -1,18 +1,18 @@
 module Monoid
-    exposing
-        ( Monoid
-        , monoid
-        , empty
-        , append
-        , concat
-        , string
-        , list
-        , array
-        , dict
-        , set
-        , cmd
-        , sub
-        )
+  exposing
+    ( Monoid
+    , monoid
+    , empty
+    , append
+    , concat
+    , string
+    , list
+    , array
+    , dict
+    , set
+    , cmd
+    , sub
+    )
 
 {-| A module to define generic functions for monoid.
 For instance, we defined generic `concat` in this module using `Monoid` type as follows.
@@ -69,10 +69,10 @@ import Set exposing (Set)
 {-| Main type.
 -}
 type Monoid a
-    = Monoid
-        { empty : a
-        , append : a -> a -> a
-        }
+  = Monoid
+    { empty : a
+    , append : a -> a -> a
+    }
 
 
 
@@ -83,10 +83,10 @@ type Monoid a
 -}
 monoid : a -> (a -> a -> a) -> Monoid a
 monoid empty append =
-    Monoid
-        { empty = empty
-        , append = append
-        }
+  Monoid
+    { empty = empty
+    , append = append
+    }
 
 
 
@@ -97,14 +97,14 @@ monoid empty append =
 -}
 empty : Monoid a -> a
 empty (Monoid { empty }) =
-    empty
+  empty
 
 
 {-| Take the way to append a monoids.
 -}
 append : Monoid a -> (a -> a -> a)
 append (Monoid { append }) =
-    append
+  append
 
 
 
@@ -115,7 +115,7 @@ append (Monoid { append }) =
 -}
 concat : Monoid a -> List a -> a
 concat m =
-    List.foldr (append m) (empty m)
+  List.foldr (append m) (empty m)
 
 
 
@@ -126,46 +126,46 @@ concat m =
 -}
 string : Monoid String
 string =
-    monoid "" (++)
+  monoid "" (++)
 
 
 {-| `Monoid` type for `List`.
 -}
 list : Monoid (List a)
 list =
-    monoid [] (++)
+  monoid [] (++)
 
 
 {-| `Monoid` type for `Array`.
 -}
 array : Monoid (Array a)
 array =
-    monoid Array.empty Array.append
+  monoid Array.empty Array.append
 
 
 {-| `Monoid` type for `Dict`.
 -}
 dict : Monoid (Dict comparable a)
 dict =
-    monoid Dict.empty Dict.union
+  monoid Dict.empty Dict.union
 
 
 {-| `Monoid` type for `Set`.
 -}
 set : Monoid (Set comparable)
 set =
-    monoid Set.empty Set.union
+  monoid Set.empty Set.union
 
 
 {-| `Monoid` type for `Cmd`.
 -}
 cmd : Monoid (Cmd comparable)
 cmd =
-    monoid Cmd.none (\a b -> Cmd.batch [ a, b ])
+  monoid Cmd.none (\a b -> Cmd.batch [ a, b ])
 
 
 {-| `Monoid` type for `Sub`.
 -}
 sub : Monoid (Sub comparable)
 sub =
-    monoid Sub.none (\a b -> Sub.batch [ a, b ])
+  monoid Sub.none (\a b -> Sub.batch [ a, b ])
