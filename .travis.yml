@@ -3,7 +3,7 @@ language: node_js
 node_js:
   - "4.4"
 install:
-  - npm install -g elm@0.17
-  - npm install -g https://github.com/arowM/elm-doctest.git#dist
+  - npm install -g elm@0.18
+  - npm install
 script:
-  - bash test.sh
+  - npm test
