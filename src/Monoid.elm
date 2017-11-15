@@ -6,6 +6,10 @@ module Monoid
         , append
         , concat
         , string
+        , Sum(..)
+        , sum
+        , Product(..)
+        , product
         , list
         , array
         , dict
@@ -28,9 +32,20 @@ concat m = List.foldr (append m) (empty m)
     concat list [[1, 2, 3], [4, 5], [6]]
     --> [1, 2, 3, 4, 5, 6]
 
+    concat sum [Sum 1, Sum 2, Sum 3, Sum 4] -- 1 + 2 + 3 + 4
+    --> Sum 10
+
+    concat sum <| List.map Sum [1, 2, 3, 4] -- 1 + 2 + 3 + 4
+    --> Sum 10
+
+    concat product <| List.map Product [1, 2, 3, 4] -- 1 * 2 * 3 * 4
+    --> Product 24
+
 # Types
 
 @docs Monoid
+@docs Sum
+@docs Product
 
 # Constructors
 
@@ -48,6 +63,8 @@ concat m = List.foldr (append m) (empty m)
 # Monoid types for popular types
 
 @docs string
+@docs sum
+@docs product
 @docs list
 @docs array
 @docs dict
@@ -128,6 +145,32 @@ concat m =
 string : Monoid String
 string =
     monoid "" (++)
+
+
+{-| `Monoid` under addition
+-}
+type Sum a
+    = Sum a
+
+
+{-| `Monoid` type for `Sum`.
+-}
+sum : Monoid (Sum number)
+sum =
+    monoid (Sum 0) (\(Sum a) (Sum b) -> Sum <| a + b)
+
+
+{-| `Monoid` under multiplication.
+-}
+type Product a
+    = Product a
+
+
+{-| `Monoid` type for `Product`.
+-}
+product : Monoid (Product number)
+product =
+    monoid (Product 1) (\(Product a) (Product b) -> Product <| a * b)
 
 
 {-| `Monoid` type for `List`.
