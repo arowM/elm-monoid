@@ -20,12 +20,13 @@ For instance, we defined generic `concat` in this module using `Monoid` type as 
 ```
 concat : Monoid a -> List a -> a
 concat m = List.foldr (append m) (empty m)
-
--- >>> concat string ["foo", "bar", "baz"]
--- "foobarbaz"
--- >>> concat list [[1, 2, 3], [4, 5], [6]]
--- [1, 2, 3, 4, 5, 6]
 ```
+
+    concat string ["foo", "bar", "baz"]
+    --> "foobarbaz"
+
+    concat list [[1, 2, 3], [4, 5], [6]]
+    --> [1, 2, 3, 4, 5, 6]
 
 # Types
 
